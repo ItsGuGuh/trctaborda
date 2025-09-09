@@ -1,3 +1,129 @@
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-ThinIt.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-ExtraLightIt.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-LightIt.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-RegularIt.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-MediumIt.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-SemiBoldIt.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-BoldIt.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Black.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-BlackIt.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-Heavy.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mohr Rounded';
+  src: url('../fonts/MohrRounded/MohrRounded-HeavyIt.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
 /* Reset e Base */
 :root {
     --primary-color: #a70e29;
@@ -21,7 +147,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Mohr Rounded', sans-serif;
     color: var(--text-color);
     line-height: 1.6;
     background-color: var(--light-color);
@@ -192,6 +318,63 @@ img {
     gap: 30px;
 }
 
+/* Submenu */
+.has-submenu {
+    position: relative;
+}
+
+.has-submenu>a::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 5px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.has-submenu:hover>a::after {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--light-color);
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    z-index: 1002;
+    padding: 10px 0;
+    animation: fadeIn 0.3s ease;
+    border: 1px solid rgba(167, 14, 41, 0.1);
+}
+
+.has-submenu:hover>.submenu,
+.has-submenu:focus-within>.submenu {
+    display: block;
+}
+
+.submenu li {
+    width: 100%;
+}
+
+.submenu li a {
+    display: block;
+    padding: 12px 20px !important;
+    color: var(--secondary-color) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 0 10px;
+    width: calc(100% - 20px);
+}
+
+.submenu li a:hover {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--light-color) !important;
+}
+
 .nav-links li a {
     font-weight: 600;
     color: var(--light-color);
@@ -245,6 +428,44 @@ img {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Melhorias para mobile */
+@media (max-width: 768px) {
+    .has-submenu>a::after {
+        content: '▶';
+        position: absolute;
+        right: 20px;
+    }
+
+    .has-submenu.active>a::after {
+        content: '▼';
+    }
+
+    .submenu {
+        position: static;
+        box-shadow: none;
+        min-width: 0;
+        background: rgba(167, 14, 41, 0.05);
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        margin-left: 20px;
+        display: none;
+    }
+
+    .has-submenu.active>.submenu {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .submenu li a {
+        padding: 12px 30px;
+        color: var(--secondary-color);
+        background: none;
+        margin: 0;
+        width: 100%;
+    }
+}
+
 /* Hero Section */
 .hero {
     position: relative;
@@ -254,7 +475,7 @@ img {
     align-items: center;
     overflow: hidden;
     margin-top: 80px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background-color: black;
 }
 
 .hero-content {
@@ -288,8 +509,19 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
     z-index: 1;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(15px);
+    opacity: 80%;
 }
 
 .hero-carousel {
@@ -1157,6 +1389,28 @@ img {
         z-index: 1000;
     }
 
+    .has-submenu {
+        width: 100%;
+    }
+
+    .submenu {
+        position: static;
+        box-shadow: none;
+        min-width: 0;
+        background: none;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .has-submenu>.submenu {
+        display: none;
+    }
+
+    .has-submenu.active>.submenu,
+    .has-submenu:focus-within>.submenu {
+        display: block;
+    }
+
     .nav-links.active {
         right: 0;
     }
@@ -1276,4 +1530,26 @@ img {
 .client-logo:hover img {
     filter: grayscale(0%);
     opacity: 1;
+}
+
+/* Esconde completamente a div do botão de desanexar */
+#detach-button-host {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Se estiver dentro de shadow DOM, tente atingir através do host */
+:host #detach-button-host {
+    display: none !important;
+}
+
+/* Outra abordagem para elementos em shadow DOM */
+* /deep/ #detach-button-host,
+*>>>#detach-button-host {
+    display: none !important;
 }

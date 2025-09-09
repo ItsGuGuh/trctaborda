@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="container">
         <a href="index" class="logo">
-            <img src="assets/img/logos/logo-trc.png" alt="TRC Taborda">
+            <img src="assets/img/logos/TRCTaborda_Logo.png" alt="TRC Taborda">
         </a>
 
         <button class="mobile-menu-toggle" aria-label="Abrir menu">
@@ -15,11 +15,99 @@
             <li><a href="#sobre">Quem Somos</a></li>
             <li><a href="#servicos">Serviços</a></li>
             <li><a href="#empresas">Empresas Atendidas</a></li>
-            <li><a href="contato">Contato</a></li>
+            <li class="has-submenu">
+                <a href="#trabalheconosco">Trabalhe Conosco</a>
+                <ul class="submenu">
+                    <li><a href="#ver-vagas">Ver Vagas</a></li>
+                    <li><a href="#relatorio-igualdade">Relatório de Igualdade</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="contato">Contato</a>
+                <ul class="submenu">
+                    <li><a href="#">Área do Colaborador</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Ouvidoria</a></li>
+                    <li><a href="#">Política Socioambiental</a></li>
+                </ul>
+            </li>
         </ul>
 
         <div class="cta-button">
-            <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os serviços da TRC Taborda." target="_blank" class="btn">Chama no Zap</a>
+            <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os serviços da TRC Taborda."
+                target="_blank" class="btn">WhatsApp</a>
         </div>
     </div>
 </nav>
+
+<style>
+    /* Ajustes para o submenu */
+    .has-submenu {
+        position: relative;
+    }
+
+    .has-submenu>a::after {
+        content: '▼';
+        font-size: 0.7rem;
+        margin-left: 5px;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .has-submenu:hover>a::after {
+        transform: rotate(180deg);
+    }
+
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--light-color);
+        min-width: 220px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        z-index: 1002;
+        padding: 10px 0;
+        animation: fadeIn 0.3s ease;
+        border: 1px solid rgba(167, 14, 41, 0.1);
+    }
+
+    .has-submenu:hover>.submenu,
+    .has-submenu:focus-within>.submenu {
+        display: block;
+    }
+
+    .submenu li {
+        width: 100%;
+    }
+</style>
+
+<script>
+    // Adicionar funcionalidade de clique para mobile
+    document.addEventListener('DOMContentLoaded', function () {
+        const hasSubmenu = document.querySelectorAll('.has-submenu');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+
+        // Para dispositivos móveis
+        if (window.innerWidth <= 768) {
+            hasSubmenu.forEach(item => {
+                const link = item.querySelector('a');
+
+                link.addEventListener('click', function (e) {
+                    if (!mobileMenuToggle.classList.contains('active')) return;
+
+                    e.preventDefault();
+                    item.classList.toggle('active');
+
+                    // Fechar outros submenus abertos
+                    hasSubmenu.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+    });
+</script>

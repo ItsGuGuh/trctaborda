@@ -1,6 +1,3 @@
-// API para servir dados dos clientes e parceiros da TRC Taborda
-// Este arquivo deve ser colocado na pasta /api/
-
 const clientesParceiros = {
     "clientes": [
         {

@@ -15,10 +15,15 @@ async function loadLayout() {
 
         // Inicializar menu mobile após carregar o header
         initMobileMenu();
-        
+
         // Adicionar classe scrolled ao header quando scrollar
         initScrollHeader();
-        
+
+        // Deixar o vídeo da hero mais lento
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) {
+            heroVideo.playbackRate = 0.8; // metade da velocidade normal
+        }
     } catch (error) {
         console.error('Erro ao carregar layout:', error);
     }
