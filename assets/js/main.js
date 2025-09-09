@@ -1,95 +1,96 @@
-// API endpoints (simulados para este exemplo)
+// API endpoints
 const API_ENDPOINTS = {
-    SERVICOS: '/api/servicos',
-    PARCEIROS: '/api/parceiros',
-    CONTADORES: '/api/contadores',
-    HERO: '/api/hero'
+    CLIENTES_PARCEIROS: '/api/clientes-parceiros',
+    CLIENTES: '/api/clientes',
+    PARCEIROS: '/api/parceiros'
 };
 
-// Dados simulados (em produção, viriam da API)
-const servicosData = [
-    {
-        titulo: "Recuperação de Crédito",
-        url_icone_ou_nome_fa: "fa-money-bill-transfer",
-        descricao: "Estratégias eficientes para recuperação de crédito com abordagem humanizada.",
-        link_detalhes: "#"
-    },
-    {
-        titulo: "Atendimento ao Cliente",
-        url_icone_ou_nome_fa: "fa-headset",
-        descricao: "Atendimento especializado para resolver dúvidas e problemas dos clientes.",
-        link_detalhes: "#"
-    },
-    {
-        titulo: "Contencioso de Volume",
-        url_icone_ou_nome_fa: "fa-scale-balanced",
-        descricao: "Gestão eficiente de grandes volumes de processos contenciosos.",
-        link_detalhes: "#"
-    },
-    {
-        titulo: "Soluções Personalizadas",
-        url_icone_ou_nome_fa: "fa-lightbulb",
-        descricao: "Desenvolvemos soluções sob medida para suas necessidades específicas.",
-        link_detalhes: "#"
-    }
-];
-
-const parceirosData = [
-    { nome_parceiro: "Cliente 1", url_logo: "assets/img/clientes/cliente1.png" },
-    { nome_parceiro: "Cliente 2", url_logo: "assets/img/clientes/cliente2.png" },
-    { nome_parceiro: "Cliente 3", url_logo: "assets/img/clientes/cliente3.png" },
-    { nome_parceiro: "Cliente 4", url_logo: "assets/img/clientes/cliente4.png" },
-    { nome_parceiro: "Cliente 5", url_logo: "assets/img/clientes/cliente5.png" },
-    { nome_parceiro: "Cliente 6", url_logo: "assets/img/clientes/cliente6.png" }
-];
-
-// Carregar serviços
-function loadServicos() {
-    const servicosContainer = document.getElementById('servicos-container');
-    
-    if (servicosContainer) {
-        servicosData.forEach(servico => {
-            const servicoCard = document.createElement('div');
-            servicoCard.className = 'service-card';
-            servicoCard.innerHTML = `
-                <div class="service-icon">
-                    <i class="fas ${servico.url_icone_ou_nome_fa}"></i>
-                </div>
-                <h3>${servico.titulo}</h3>
-                <p>${servico.descricao}</p>
-                <a href="${servico.link_detalhes}" class="btn btn-outline">Saiba Mais</a>
-            `;
-            servicosContainer.appendChild(servicoCard);
-        });
+// Carregar clientes e parceiros da API
+async function loadClientesParceiros() {
+    try {
+        const response = await fetch(API_ENDPOINTS.CLIENTES_PARCEIROS);
+        if (!response.ok) throw new Error('Erro ao carregar dados');
+        
+        const data = await response.json();
+        renderClientes(data.clientes);
+        renderParceiros(data.parceiros);
+    } catch (error) {
+        console.error('Erro ao carregar clientes e parceiros:', error);
+        // Fallback para dados estáticos caso a API falhe
+        loadClientesParceirosFallback();
     }
 }
 
-// Carregar parceiros
-function loadParceiros() {
+// Fallback com dados estáticos
+function loadClientesParceirosFallback() {
+    const clientes = [
+        {
+            id: 1,
+            nome: "Ailos",
+            logo_colorido: "assets/img/clientes/ailos.png",
+            logo_branco: "assets/img/clientes/ailos_white.png",
+            link: "clientes/ailos.html",
+            categoria: "Financeiro"
+        },
+        // ... outros clientes
+    ];
+    
+    const parceiros = [
+        {
+            id: 1,
+            nome: "Federação Brasileira de Bancos",
+            logo_colorido: "assets/img/parceiros/febraban.png",
+            logo_branco: "assets/img/parceiros/febraban_white.png",
+            link: "parceiros/febraban.html",
+            categoria: "Associação"
+        },
+        // ... outros parceiros
+    ];
+    
+    renderClientes(clientes);
+    renderParceiros(parceiros);
+}
+
+// Renderizar clientes
+function renderClientes(clientes) {
+    const clientesContainer = document.getElementById('clientes-container');
+    if (!clientesContainer) return;
+    
+    clientesContainer.innerHTML = '';
+    
+    clientes.forEach(cliente => {
+        const clienteElement = document.createElement('div');
+        clienteElement.className = 'client-logo';
+        clienteElement.innerHTML = `
+            <a href="${cliente.link}" target="_blank">
+                <img src="${cliente.logo_colorido}" alt="${cliente.nome}" 
+                     onmouseover="this.src='${cliente.logo_branco}'" 
+                     onmouseout="this.src='${cliente.logo_colorido}'">
+            </a>
+        `;
+        clientesContainer.appendChild(clienteElement);
+    });
+}
+
+// Renderizar parceiros
+function renderParceiros(parceiros) {
     const parceirosContainer = document.getElementById('parceiros-container');
+    if (!parceirosContainer) return;
     
-    if (parceirosContainer) {
-        parceirosData.forEach(parceiro => {
-            const parceiroLogo = document.createElement('div');
-            parceiroLogo.className = 'client-logo';
-            parceiroLogo.innerHTML = `<img src="${parceiro.url_logo}" alt="${parceiro.nome_parceiro}">`;
-            parceirosContainer.appendChild(parceiroLogo);
-        });
-    }
-}
-
-// Animação do carrossel de texto
-function initTextCarousel() {
-    const items = document.querySelectorAll('.carousel-item');
-    let currentIndex = 0;
+    parceirosContainer.innerHTML = '';
     
-    if (items.length > 0) {
-        setInterval(() => {
-            items[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % items.length;
-            items[currentIndex].classList.add('active');
-        }, 3000);
-    }
+    parceiros.forEach(parceiro => {
+        const parceiroElement = document.createElement('div');
+        parceiroElement.className = 'client-logo';
+        parceiroElement.innerHTML = `
+            <a href="${parceiro.link}" target="_blank">
+                <img src="${parceiro.logo_colorido}" alt="${parceiro.nome}" 
+                     onmouseover="this.src='${parceiro.logo_branco}'" 
+                     onmouseout="this.src='${parceiro.logo_colorido}'">
+            </a>
+        `;
+        parceirosContainer.appendChild(parceiroElement);
+    });
 }
 
 // Inicializar tudo quando o DOM estiver pronto
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initForms();
     loadServicos();
-    loadParceiros();
+    loadClientesParceiros(); // Carrega clientes e parceiros da API
     initTextCarousel();
     
     // Ativar menu ativo conforme a página
